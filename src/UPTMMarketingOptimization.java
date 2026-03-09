@@ -98,7 +98,7 @@ public class UPTMMarketingOptimization {
         // Write your code here
     }//end of a static method
     // Driver method
-    public static void main(String[] args)
+    /* public static void main(String[] args)
     {
         System.out.println(greedyMCOP(costMatrix));
         System.out.println(dynamicProgrammingMCOP(costMatrix));
@@ -122,5 +122,5 @@ public class UPTMMarketingOptimization {
         tree.insert(10);
         tree.insert(30);
         System.out.println("Splay Tree Search (10 found): " + tree.search(10);
-    }
+    } */
 }
