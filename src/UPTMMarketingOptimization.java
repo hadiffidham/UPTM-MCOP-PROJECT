@@ -72,9 +72,16 @@ public class UPTMMarketingOptimization {
     // Insertion Sort
     public static String insertionSort(int[] arr)
     {
-        // TO BE IMPLEMENTED: Insertion Sort Algorithm logic
-        // Write your code here
-        return "";
+        for (int i = 1; i < arr.length; i++) {
+            int iTemp = arr[i];
+            int j;
+            for (j = i - 1; j >= 0 && iTemp < arr[j]; j--) {
+                arr[j + 1] = arr[j];
+            }
+
+            arr[j + 1] = iTemp;
+        }
+        return "Insertion Sort Completed";
     }//end of a static method
 
     // Binary Search
