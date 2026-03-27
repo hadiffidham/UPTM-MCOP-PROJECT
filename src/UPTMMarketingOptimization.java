@@ -129,10 +129,115 @@ public class UPTMMarketingOptimization {
         // Write your code here
     }//end of a static method
     // Splay Tree
-    static class SplayTree
-    {
-        // TO BE IMPLEMENTED: Splay Tree Algorithm logic
-        // Write your code here
+// Splay Tree
+    static class SplayTree {
+
+        class Node {
+            int key;
+            Node left, right;
+
+            Node(int key) {
+                this.key = key;
+                left = right = null;
+            }
+        }
+
+        private Node root;
+
+        public SplayTree() {
+            root = null;
+        }
+
+        // Right rotation
+        private Node rotateRight(Node y) {
+            Node x = y.left;
+            y.left = x.right;
+            x.right = y;
+            return x;
+        }
+
+        // Left rotation
+        private Node rotateLeft(Node y) {
+            Node x = y.right;
+            y.right = x.left;
+            x.left = y;
+            return x;
+        }
+
+        // Splay operation
+        private Node splay(Node root, int key) {
+            if (root == null || root.key == key)
+                return root;
+
+            // Key lies in left subtree
+            if (key < root.key) {
+                if (root.left == null) return root;
+
+                // Zig-Zig (Left Left)
+                if (key < root.left.key) {
+                    root.left.left = splay(root.left.left, key);
+                    root = rotateRight(root);
+                }
+                // Zig-Zag (Left Right)
+                else if (key > root.left.key) {
+                    root.left.right = splay(root.left.right, key);
+                    if (root.left.right != null)
+                        root.left = rotateLeft(root.left);
+                }
+
+                return (root.left == null) ? root : rotateRight(root);
+            }
+            // Key lies in right subtree
+            else {
+                if (root.right == null) return root;
+
+                // Zig-Zig (Right Right)
+                if (key > root.right.key) {
+                    root.right.right = splay(root.right.right, key);
+                    root = rotateLeft(root);
+                }
+                // Zig-Zag (Right Left)
+                else if (key < root.right.key) {
+                    root.right.left = splay(root.right.left, key);
+                    if (root.right.left != null)
+                        root.right = rotateRight(root.right);
+                }
+
+                return (root.right == null) ? root : rotateLeft(root);
+            }
+        }
+
+        // Insert a key
+        public void insert(int key) {
+            if (root == null) {
+                root = new Node(key);
+                return;
+            }
+
+            root = splay(root, key);
+
+            if (root.key == key) return;
+
+            Node newNode = new Node(key);
+
+            if (key < root.key) {
+                newNode.right = root;
+                newNode.left = root.left;
+                root.left = null;
+            } else {
+                newNode.left = root;
+                newNode.right = root.right;
+                root.right = null;
+            }
+
+            root = newNode;
+        }
+
+        // Search for a key
+        public boolean search(int key) {
+            root = splay(root, key);
+            return (root != null && root.key == key);
+        }
     }//end of a static method
     // Driver method
     public static void main(String[] args)
@@ -147,17 +252,20 @@ public class UPTMMarketingOptimization {
         System.out.println("Sorted Array: " + Arrays.toString(arr));
         System.out.println("Binary Search (5 found at index): " +
                 binarySearch(arr, 5));
+
         // Min-Heap Test
         //MinHeap heap = new MinHeap();
         //heap.insert(10);
         //heap.insert(3);
         //heap.insert(15);
         //System.out.println("Min-Heap Extract Min: " + heap.extractMin());
+
         // Splay Tree Test
-        //SplayTree tree = new SplayTree();
-        //tree.insert(20);
-        //tree.insert(10);
-        //tree.insert(30);
-        //System.out.println("Splay Tree Search (10 found): " + tree.search(10);
+        SplayTree tree = new SplayTree();
+        tree.insert(20);
+        tree.insert(10);
+        tree.insert(30);
+        System.out.println("Splay Tree Search (10 found): " +
+                tree.search(10));
     }
 }
