@@ -128,8 +128,8 @@ public class UPTMMarketingOptimization {
         // TO BE IMPLEMENTED: Heap Algorithm logic
         // Write your code here
     }//end of a static method
+
     // Splay Tree
-// Splay Tree
     static class SplayTree {
 
         class Node {
